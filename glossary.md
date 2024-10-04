@@ -12,7 +12,7 @@
 * [Message-Driven (in contrast to Event-Driven)](#Message-Driven)
 * [Non-Blocking](#Non-Blocking)
 * [Protocol](#Protocol)
-* [Replication](#Replication)
+* [Replication (in contrast to Redundancy)](#Replication)
 * [Resource](#Resource)
 * [Scalability](#Scalability)
 * [System](#System)
@@ -76,7 +76,7 @@ In comparison to local programming interfaces a protocol is more generic since i
 
 It should be noted that a protocol as defined here just specifies which messages may be sent, but not how they are sent: encoding, decoding (i.e. codecs), and transport mechanisms are implementation details that are transparent to the components’ use of the protocol.
 
-## <a name="Replication"></a>Replication
+## <a name="Replication"></a>Replication (in contrast to Redundancy)
 Executing a [component](#Component) simultaneously in different places is referred to as replication. This can mean executing on different threads or thread pools, processes, network nodes, or computing centers. Replication offers [scalability](#Scalability), where the incoming workload is distributed across multiple instances of a component, or resilience, where the incoming workload is replicated to multiple instances which process the same requests in parallel. These approaches can be mixed, for example by ensuring that all transactions pertaining to a certain user of the component will be executed by two instances while the total number of instances varies with the incoming load, (see [Elasticity](#Elasticity)).
 
 Where a stateful component is replicated, care must be taken to synchronize the state data between replicas, otherwise clients of this component need to be aware of the replication scheme and encapsulation is violated. The choice of synchronization scheme in general presents a trade-off between consistency and availability, where perfect availability can only be achieved if replicas are allowed to diverge for limited time periods (eventual consistency) and perfect consistency requires all replicas to advance their state effectively in lock-step. Between these extremes lies a spectrum of possible solutions, from which each component should pick the one that is most appropriate for its needs.
